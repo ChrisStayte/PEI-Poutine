@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peipoutine/screens/main_page.dart';
+import 'package:peipoutine/screens/settings_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +13,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PEI Poutine',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Color(0xff8FC3BD),
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Color(0xff00968C),
+        ),
       ),
-      home: const MainPage(),
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        return MaterialPageRoute(builder: (_) {
+          switch (settings.name) {
+            case '/':
+              return MainPage();
+            case '/settings':
+              return SettingsPage();
+          }
+          throw Exception('No route found -> ${settings.name}');
+        });
+      },
     );
   }
 }
